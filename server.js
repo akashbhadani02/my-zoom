@@ -138,7 +138,7 @@ function removeUser(socket) {
 
 }
 
-app.use((req, res) => {
+app.get("/", (req, res) => {
 
     res.sendFile(
         path.join(
@@ -149,7 +149,6 @@ app.use((req, res) => {
     );
 
 });
-
 server.listen(PORT, () => {
 
     console.log(
