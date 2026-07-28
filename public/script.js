@@ -1713,3 +1713,30 @@ socket.on(
 
     }
 );
+
+/* =========================================
+   DOUBLE CLICK CAMERA FULLSCREEN TOGGLE
+========================================= */
+
+document.addEventListener(
+    "dblclick",
+    function (event) {
+
+        // Find clicked camera box
+        const camera =
+            event.target.closest(
+                ".video-container"
+            );
+
+        // If double click was outside camera
+        if (!camera) {
+            return;
+        }
+
+        // Toggle fullscreen class
+        camera.classList.toggle(
+            "camera-fullscreen"
+        );
+
+    }
+);
