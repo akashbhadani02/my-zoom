@@ -1,0 +1,13 @@
+{
+  "name": "zoom-meeting-app",
+  "version": "1.0.0",
+  "description": "Zoom like video meeting app using WebRTC and Socket.IO",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  }
+}

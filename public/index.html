@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Online Meeting</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- JOIN SCREEN -->
+    <!-- ========================= -->
+
+    <div id="joinScreen" class="join-screen">
+
+        <div class="join-card">
+
+            <div class="logo">
+                🎥
+            </div>
+
+            <h1>Online Meeting</h1>
+
+            <p>
+                Join your meeting securely
+            </p>
+
+            <input
+                type="text"
+                id="userName"
+                placeholder="Enter your name"
+                autocomplete="off"
+            >
+
+            <input
+                type="text"
+                id="roomId"
+                placeholder="Enter Meeting ID"
+                autocomplete="off"
+            >
+
+            <button
+                id="joinBtn"
+                class="primary-btn"
+            >
+                Join Meeting
+            </button>
+
+            <p id="joinError" class="error-message"></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MEETING SCREEN -->
+    <!-- ========================= -->
+
+    <div
+        id="meetingScreen"
+        class="meeting-screen hidden"
+    >
+
+        <!-- TOP BAR -->
+
+        <header class="top-bar">
+
+            <div class="brand">
+
+                <span class="brand-icon">
+                    🎥
+                </span>
+
+                <span>
+                    Online Meeting
+                </span>
+
+            </div>
+
+            <div class="meeting-info">
+
+                <span>
+                    Meeting ID:
+                </span>
+
+                <strong id="currentRoom">
+                    -
+                </strong>
+
+                <button
+                    id="copyRoomBtn"
+                    class="small-btn"
+                >
+                    📋 Copy
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- MAIN AREA -->
+
+        <main class="main-container">
+
+
+            <!-- VIDEO AREA -->
+
+            <section class="video-section">
+
+                <div
+                    id="videoGrid"
+                    class="video-grid"
+                >
+
+                    <!-- Local Video -->
+
+                    <div
+                        class="video-container local-video"
+                        id="localVideoContainer"
+                    >
+
+                        <video
+                            id="localVideo"
+                            autoplay
+                            muted
+                            playsinline
+                        ></video>
+
+                        <div class="video-name">
+                            You
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTROLS -->
+
+                <div class="controls">
+
+                    <!-- Mic -->
+
+                    <button
+                        id="micBtn"
+                        class="control-btn"
+                    >
+
+                        <span id="micIcon">
+                            🎙️
+                        </span>
+
+                        <small>
+                            Mute
+                        </small>
+
+                    </button>
+
+
+                    <!-- Camera -->
+
+                    <button
+                        id="cameraBtn"
+                        class="control-btn"
+                    >
+
+                        <span id="cameraIcon">
+                            📹
+                        </span>
+
+                        <small>
+                            Camera
+                        </small>
+
+                    </button>
+
+
+                    <!-- Screen Share -->
+
+                    <button
+                        id="screenShareBtn"
+                        class="control-btn"
+                    >
+
+                        <span>
+                            🖥️
+                        </span>
+
+                        <small>
+                            Share Screen
+                        </small>
+
+                    </button>
+
+
+                    <!-- Participants -->
+
+                    <button
+                        id="participantsBtn"
+                        class="control-btn"
+                    >
+
+                        <span>
+                            👥
+                        </span>
+
+                        <small>
+                            People
+                        </small>
+
+                    </button>
+
+
+                    <!-- Chat -->
+
+                    <button
+                        id="chatBtn"
+                        class="control-btn"
+                    >
+
+                        <span>
+                            💬
+                        </span>
+
+                        <small>
+                            Chat
+                        </small>
+
+                    </button>
+
+
+                    <!-- Leave -->
+
+                    <button
+                        id="leaveBtn"
+                        class="control-btn leave-btn"
+                    >
+
+                        <span>
+                            🚪
+                        </span>
+
+                        <small>
+                            Leave
+                        </small>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- SIDE PANEL -->
+
+            <aside
+                id="sidePanel"
+                class="side-panel hidden"
+            >
+
+                <!-- PANEL HEADER -->
+
+                <div class="panel-header">
+
+                    <h2 id="panelTitle">
+                        Participants
+                    </h2>
+
+                    <button
+                        id="closePanelBtn"
+                        class="close-btn"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+
+                <!-- PARTICIPANTS -->
+
+                <div
+                    id="participantsPanel"
+                    class="panel-content"
+                >
+
+                    <div class="participant-item">
+
+                        <span class="participant-avatar">
+                            👤
+                        </span>
+
+                        <span id="myParticipantName">
+                            You
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CHAT -->
+
+                <div
+                    id="chatPanel"
+                    class="chat-container hidden"
+                >
+
+                    <div
+                        id="messages"
+                        class="messages"
+                    >
+
+                        <div class="system-message">
+                            Welcome to the meeting chat
+                        </div>
+
+                    </div>
+
+                    <div class="chat-input-area">
+
+                        <input
+                            type="text"
+                            id="chatInput"
+                            placeholder="Type a message..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            id="sendChatBtn"
+                        >
+                            Send
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </main>
+
+    </div>
+
+
+    <!-- SOCKET.IO -->
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- MAIN JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
