@@ -1,5 +1,6 @@
+```css
 /* =========================================
-   GLOBAL
+   GLOBAL RESET
 ========================================= */
 
 * {
@@ -13,31 +14,32 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+
     font-family:
         Arial,
         Helvetica,
         sans-serif;
-    background: #111111;
-    color: #ffffff;
+
+    background: #111;
+    color: #fff;
 }
 
+body {
+    -webkit-tap-highlight-color: transparent;
+}
 
-/* =========================================
-   COMMON
-========================================= */
-
-.hidden {
-    display: none !important;
+button,
+input {
+    font-family: inherit;
 }
 
 button {
     border: none;
     cursor: pointer;
-    font-family: inherit;
 }
 
-input {
-    font-family: inherit;
+.hidden {
+    display: none !important;
 }
 
 
@@ -47,7 +49,7 @@ input {
 
 .join-screen {
     width: 100%;
-    height: 100vh;
+    min-height: 100dvh;
 
     display: flex;
     align-items: center;
@@ -59,9 +61,11 @@ input {
         radial-gradient(
             circle at top,
             #263238 0%,
-            #111111 55%,
+            #111 55%,
             #080808 100%
         );
+
+    overflow-y: auto;
 }
 
 .join-card {
@@ -113,18 +117,15 @@ input {
 }
 
 .join-card p {
-    color: #aaaaaa;
+    color: #aaa;
     margin-bottom: 25px;
 }
 
 .join-card input {
     width: 100%;
-
     height: 52px;
 
-    padding:
-        0 16px;
-
+    padding: 0 16px;
     margin-bottom: 15px;
 
     border-radius: 10px;
@@ -135,13 +136,11 @@ input {
 
     background: #292929;
 
-    color: white;
+    color: #fff;
 
     outline: none;
 
     font-size: 16px;
-
-    transition: 0.2s;
 }
 
 .join-card input:focus {
@@ -153,34 +152,26 @@ input {
 }
 
 .join-card input::placeholder {
-    color: #888888;
+    color: #888;
 }
 
 .primary-btn {
     width: 100%;
-
     height: 52px;
 
     border-radius: 10px;
 
     background: #2d8cff;
-
-    color: white;
+    color: #fff;
 
     font-size: 16px;
-
     font-weight: bold;
 
-    transition:
-        transform 0.2s,
-        background 0.2s;
+    transition: 0.2s;
 }
 
 .primary-btn:hover {
     background: #1677e8;
-
-    transform:
-        translateY(-1px);
 }
 
 .error-message {
@@ -202,12 +193,14 @@ input {
 
 .meeting-screen {
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
 
     display: flex;
     flex-direction: column;
 
-    background: #111111;
+    background: #111;
+
+    overflow: hidden;
 }
 
 
@@ -216,7 +209,8 @@ input {
 ========================================= */
 
 .top-bar {
-    height: 65px;
+    width: 100%;
+    min-height: 60px;
 
     flex-shrink: 0;
 
@@ -224,8 +218,10 @@ input {
     align-items: center;
     justify-content: space-between;
 
+    gap: 15px;
+
     padding:
-        0 22px;
+        0 20px;
 
     background: #181818;
 
@@ -236,34 +232,43 @@ input {
 
 .brand {
     display: flex;
-
     align-items: center;
 
-    gap: 10px;
+    gap: 9px;
 
     font-size: 18px;
-
     font-weight: bold;
+
+    white-space: nowrap;
 }
 
 .brand-icon {
-    font-size: 25px;
+    font-size: 24px;
 }
 
 .meeting-info {
     display: flex;
-
     align-items: center;
 
-    gap: 10px;
+    gap: 8px;
 
-    color: #aaaaaa;
+    color: #aaa;
 
-    font-size: 14px;
+    font-size: 13px;
+
+    min-width: 0;
 }
 
 .meeting-info strong {
-    color: #ffffff;
+    color: #fff;
+
+    max-width: 180px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
 }
 
 .small-btn {
@@ -274,11 +279,11 @@ input {
 
     background: #292929;
 
-    color: white;
+    color: #fff;
 
-    font-size: 13px;
+    font-size: 12px;
 
-    transition: 0.2s;
+    white-space: nowrap;
 }
 
 .small-btn:hover {
@@ -298,6 +303,8 @@ input {
     display: flex;
 
     position: relative;
+
+    overflow: hidden;
 }
 
 
@@ -309,14 +316,13 @@ input {
     flex: 1;
 
     min-width: 0;
-
     min-height: 0;
 
     display: flex;
 
     flex-direction: column;
 
-    background: #111111;
+    background: #111;
 }
 
 .video-grid {
@@ -339,11 +345,13 @@ input {
     overflow-y: auto;
 
     align-content: center;
+
+    -webkit-overflow-scrolling: touch;
 }
 
 
 /* =========================================
-   VIDEO CONTAINER
+   VIDEO BOX
 ========================================= */
 
 .video-container {
@@ -355,7 +363,7 @@ input {
 
     min-height: 180px;
 
-    background: #222222;
+    background: #222;
 
     border-radius: 12px;
 
@@ -363,7 +371,7 @@ input {
 
     border:
         1px solid
-        #333333;
+        #333;
 
     box-shadow:
         0 8px 25px
@@ -378,7 +386,7 @@ input {
 
     object-fit: cover;
 
-    background: #222222;
+    background: #222;
 }
 
 .local-video video {
@@ -398,9 +406,9 @@ input {
     border-radius: 6px;
 
     background:
-        rgba(0, 0, 0, 0.65);
+        rgba(0, 0, 0, 0.7);
 
-    color: white;
+    color: #fff;
 
     font-size: 13px;
 
@@ -415,11 +423,13 @@ input {
 
 
 /* =========================================
-   CONTROLS
+   BOTTOM CONTROLS
 ========================================= */
 
 .controls {
-    min-height: 90px;
+    min-height: 82px;
+
+    flex-shrink: 0;
 
     display: flex;
 
@@ -427,10 +437,10 @@ input {
 
     justify-content: center;
 
-    gap: 12px;
+    gap: 10px;
 
     padding:
-        12px 20px;
+        10px 15px;
 
     background: #181818;
 
@@ -439,15 +449,26 @@ input {
         #292929;
 
     overflow-x: auto;
+
+    scrollbar-width: none;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.controls::-webkit-scrollbar {
+    display: none;
 }
 
 .control-btn {
-    min-width: 75px;
+    flex:
+        0 0 auto;
 
-    height: 65px;
+    min-width: 72px;
+
+    height: 60px;
 
     padding:
-        8px 10px;
+        6px 8px;
 
     display: flex;
 
@@ -457,40 +478,35 @@ input {
 
     justify-content: center;
 
-    gap: 5px;
+    gap: 4px;
 
     border-radius: 10px;
 
     background: #292929;
 
-    color: white;
+    color: #fff;
 
-    transition:
-        background 0.2s,
-        transform 0.2s;
+    transition: 0.2s;
 }
 
 .control-btn:hover {
     background: #3a3a3a;
+}
 
-    transform:
-        translateY(-2px);
+.control-btn:active {
+    transform: scale(0.95);
 }
 
 .control-btn span {
-    font-size: 22px;
+    font-size: 21px;
 }
 
 .control-btn small {
-    font-size: 11px;
+    font-size: 10px;
 
-    color: #cccccc;
+    color: #ccc;
 
     white-space: nowrap;
-}
-
-.control-btn.active {
-    background: #444444;
 }
 
 .control-btn.disabled {
@@ -512,7 +528,6 @@ input {
 
 .side-panel {
     width: 350px;
-
     height: 100%;
 
     flex-shrink: 0;
@@ -526,10 +541,12 @@ input {
     border-left:
         1px solid
         #303030;
+
+    z-index: 100;
 }
 
 .panel-header {
-    height: 60px;
+    min-height: 60px;
 
     flex-shrink: 0;
 
@@ -559,19 +576,10 @@ input {
 
     background: #292929;
 
-    color: white;
+    color: #fff;
 
     font-size: 16px;
 }
-
-.close-btn:hover {
-    background: #3a3a3a;
-}
-
-
-/* =========================================
-   PARTICIPANTS
-========================================= */
 
 .panel-content {
     flex: 1;
@@ -594,8 +602,6 @@ input {
     margin-bottom: 5px;
 
     border-radius: 8px;
-
-    transition: 0.2s;
 }
 
 .participant-item:hover {
@@ -605,6 +611,8 @@ input {
 .participant-avatar {
     width: 38px;
     height: 38px;
+
+    flex-shrink: 0;
 
     display: flex;
 
@@ -639,12 +647,14 @@ input {
     overflow-y: auto;
 
     padding: 15px;
+
+    -webkit-overflow-scrolling: touch;
 }
 
 .system-message {
     text-align: center;
 
-    color: #888888;
+    color: #888;
 
     font-size: 13px;
 
@@ -668,6 +678,8 @@ input {
 .chat-message-text {
     display: inline-block;
 
+    max-width: 90%;
+
     padding:
         9px 12px;
 
@@ -675,7 +687,7 @@ input {
 
     background: #292929;
 
-    color: #eeeeee;
+    color: #eee;
 
     font-size: 14px;
 
@@ -688,6 +700,12 @@ input {
     gap: 8px;
 
     padding: 12px;
+
+    padding-bottom:
+        max(
+            12px,
+            env(safe-area-inset-bottom)
+        );
 
     border-top:
         1px solid
@@ -714,14 +732,14 @@ input {
 
     background: #292929;
 
-    color: white;
-}
+    color: #fff;
 
-.chat-input-area input:focus {
-    border-color: #2d8cff;
+    font-size: 15px;
 }
 
 .chat-input-area button {
+    flex-shrink: 0;
+
     height: 42px;
 
     padding:
@@ -731,33 +749,9 @@ input {
 
     background: #2d8cff;
 
-    color: white;
+    color: #fff;
 
     font-weight: bold;
-}
-
-
-/* =========================================
-   SCROLLBAR
-========================================= */
-
-::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-}
-
-::-webkit-scrollbar-track {
-    background: #181818;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #444444;
-
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555555;
 }
 
 
@@ -770,24 +764,16 @@ input {
     .side-panel {
         position: absolute;
 
-        right: 0;
         top: 0;
+        right: 0;
 
-        width: 330px;
+        width: 340px;
 
-        z-index: 100;
+        height: 100%;
 
         box-shadow:
             -10px 0 30px
             rgba(0, 0, 0, 0.5);
-    }
-
-    .video-grid {
-        grid-template-columns:
-            repeat(
-                auto-fit,
-                minmax(240px, 1fr)
-            );
     }
 
 }
@@ -799,71 +785,110 @@ input {
 
 @media (max-width: 600px) {
 
+    /* TOP BAR */
+
     .top-bar {
-        height: 58px;
+        min-height: 55px;
 
         padding:
-            0 12px;
-    }
-
-    .brand {
-        font-size: 15px;
-    }
-
-    .brand-icon {
-        font-size: 20px;
-    }
-
-    .meeting-info {
-        font-size: 11px;
-
-        gap: 5px;
-    }
-
-    .meeting-info span {
-        display: none;
-    }
-
-    .small-btn {
-        padding:
-            7px 9px;
-
-        font-size: 11px;
-    }
-
-    .video-grid {
-        grid-template-columns: 1fr;
-
-        padding: 8px;
+            0 10px;
 
         gap: 8px;
     }
 
-    .video-container {
-        min-height: 150px;
-
-        aspect-ratio: 16 / 10;
-    }
-
-    .controls {
-        min-height: 75px;
-
-        padding:
-            8px 5px;
+    .brand {
+        font-size: 14px;
 
         gap: 5px;
+    }
 
-        justify-content:
-            flex-start;
+    .brand-icon {
+        font-size: 19px;
+    }
+
+    .meeting-info {
+        gap: 5px;
+
+        font-size: 10px;
+    }
+
+    .meeting-info > span {
+        display: none;
+    }
+
+    .meeting-info strong {
+        max-width: 90px;
+    }
+
+    .small-btn {
+        padding:
+            7px 8px;
+
+        font-size: 10px;
+    }
+
+
+    /* VIDEO AREA */
+
+    .video-grid {
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+
+        padding: 8px;
+
+        align-content: start;
+    }
+
+    .video-container {
+        width: 100%;
+
+        min-height: 0;
+
+        aspect-ratio: 16 / 10;
+
+        border-radius: 9px;
+    }
+
+    .video-name {
+        left: 7px;
+        bottom: 7px;
+
+        padding:
+            5px 8px;
+
+        font-size: 11px;
+    }
+
+
+    /* CONTROLS */
+
+    .controls {
+        min-height: 72px;
+
+        justify-content: flex-start;
+
+        gap: 6px;
+
+        padding:
+            7px 8px;
+
+        padding-bottom:
+            max(
+                7px,
+                env(safe-area-inset-bottom)
+            );
     }
 
     .control-btn {
         min-width: 62px;
 
-        height: 58px;
+        height: 56px;
+
+        border-radius: 9px;
 
         padding:
-            5px;
+            4px 6px;
     }
 
     .control-btn span {
@@ -874,38 +899,175 @@ input {
         font-size: 9px;
     }
 
+
+    /* SIDE PANEL */
+
     .side-panel {
+        position: absolute;
+
+        inset: 0;
+
         width: 100%;
+        height: 100%;
+
+        border: none;
+
+        z-index: 500;
+    }
+
+    .panel-header {
+        min-height: 55px;
+
+        padding:
+            0 14px;
+    }
+
+    .panel-header h2 {
+        font-size: 17px;
+    }
+
+
+    /* JOIN CARD */
+
+    .join-screen {
+        padding:
+            15px;
     }
 
     .join-card {
         padding:
-            30px 22px;
+            30px 20px;
+
+        border-radius: 15px;
+    }
+
+    .logo {
+        width: 65px;
+        height: 65px;
+
+        font-size: 30px;
+
+        margin-bottom: 15px;
     }
 
     .join-card h1 {
-        font-size: 25px;
+        font-size: 24px;
+    }
+
+    .join-card p {
+        font-size: 14px;
+    }
+
+    .join-card input {
+        height: 50px;
+
+        font-size: 16px;
+    }
+
+    .primary-btn {
+        height: 50px;
     }
 
 }
 
 
 /* =========================================
-   VERY SMALL MOBILE
+   SMALL MOBILE
 ========================================= */
 
 @media (max-width: 380px) {
 
-    .control-btn {
-        min-width: 55px;
+    .brand {
+        font-size: 12px;
     }
 
-    .control-btn small {
-        font-size: 8px;
+    .brand-icon {
+        font-size: 17px;
+    }
+
+    .meeting-info strong {
+        max-width: 70px;
+    }
+
+    .small-btn {
+        padding:
+            6px 7px;
+
+        font-size: 9px;
+    }
+
+    .control-btn {
+        min-width: 56px;
+
+        height: 54px;
     }
 
     .control-btn span {
         font-size: 17px;
     }
 
+    .control-btn small {
+        font-size: 8px;
+    }
+
 }
+
+
+/* =========================================
+   LANDSCAPE MOBILE
+========================================= */
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+    .top-bar {
+        min-height: 48px;
+    }
+
+    .video-grid {
+        grid-template-columns:
+            repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+
+        padding: 6px;
+    }
+
+    .video-container {
+        aspect-ratio: 16 / 9;
+    }
+
+    .controls {
+        min-height: 65px;
+    }
+
+    .control-btn {
+        height: 50px;
+    }
+
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #181818;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+```
