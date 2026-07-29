@@ -204,6 +204,19 @@ async function joinMeeting() {
         myParticipantName.textContent =
             userName;
 
+        // Show my actual name below my camera
+        const localNameLabel =
+            localVideoContainer.querySelector(
+                ".video-name"
+            );
+
+        if (localNameLabel) {
+
+            localNameLabel.textContent =
+                userName;
+
+        }
+
         currentRoom.textContent =
             roomId;
 
@@ -363,13 +376,14 @@ async function createOffer(
         socket.emit(
             "offer",
             {
-
                 target:
                     targetSocketId,
 
                 offer:
-                    offer
+                    offer,
 
+                userName:
+                    currentUserName
             }
         );
 
@@ -394,7 +408,8 @@ socket.on(
     "offer",
     async ({
         sender,
-        offer
+        offer,
+        userName
     }) => {
 
         try {
@@ -402,7 +417,7 @@ socket.on(
             const peerConnection =
                 createPeerConnection(
                     sender,
-                    "Participant"
+                    userName || "Participant"
                 );
 
 
