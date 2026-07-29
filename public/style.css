@@ -1,6 +1,11 @@
 /* =========================================================
-   COLORFUL VIDEO MEETING APP
-   Modern + Glassmorphism + Mobile Responsive
+   ONLINE MEETING APP
+   COMPLETE RESPONSIVE COLORFUL CSS
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
 ========================================================= */
 
 * {
@@ -13,6 +18,7 @@ html,
 body {
     width: 100%;
     height: 100%;
+
     overflow: hidden;
 
     font-family:
@@ -25,9 +31,9 @@ body {
     background:
         linear-gradient(
             135deg,
-            #07111f,
-            #10102b,
-            #180d2e
+            #050816,
+            #10142e,
+            #1b0c2e
         );
 }
 
@@ -55,10 +61,12 @@ button {
 ========================================================= */
 
 .join-screen {
+
     width: 100%;
     height: 100dvh;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -67,16 +75,29 @@ button {
     overflow-y: auto;
 
     background:
+
         radial-gradient(
             circle at 15% 20%,
-            rgba(0, 174, 255, 0.25),
+            rgba(
+                0,
+                174,
+                255,
+                0.25
+            ),
             transparent 30%
         ),
+
         radial-gradient(
             circle at 85% 80%,
-            rgba(168, 85, 247, 0.28),
+            rgba(
+                168,
+                85,
+                247,
+                0.28
+            ),
             transparent 35%
         ),
+
         linear-gradient(
             135deg,
             #050816,
@@ -86,9 +107,10 @@ button {
 }
 
 
-/* Animated background glow */
+/* Animated Glow */
 
 .join-screen::before {
+
     content: "";
 
     position: fixed;
@@ -102,7 +124,12 @@ button {
     border-radius: 50%;
 
     background:
-        rgba(0, 200, 255, 0.15);
+        rgba(
+            0,
+            200,
+            255,
+            0.15
+        );
 
     filter:
         blur(80px);
@@ -116,22 +143,35 @@ button {
 ========================================================= */
 
 .join-card {
+
     position: relative;
 
     width: 100%;
     max-width: 440px;
 
-    padding: 45px 35px;
+    padding:
+        45px 35px;
 
     text-align: center;
 
     border-radius: 25px;
 
     background:
+
         linear-gradient(
             145deg,
-            rgba(255,255,255,0.12),
-            rgba(255,255,255,0.04)
+            rgba(
+                255,
+                255,
+                255,
+                0.12
+            ),
+            rgba(
+                255,
+                255,
+                255,
+                0.04
+            )
         );
 
     backdrop-filter:
@@ -142,11 +182,21 @@ button {
 
     border:
         1px solid
-        rgba(255,255,255,0.15);
+        rgba(
+            255,
+            255,
+            255,
+            0.15
+        );
 
     box-shadow:
         0 25px 80px
-        rgba(0,0,0,0.55);
+        rgba(
+            0,
+            0,
+            0,
+            0.55
+        );
 
     animation:
         cardAppear
@@ -154,9 +204,11 @@ button {
         ease;
 }
 
+
 @keyframes cardAppear {
 
     from {
+
         opacity: 0;
 
         transform:
@@ -165,6 +217,7 @@ button {
     }
 
     to {
+
         opacity: 1;
 
         transform:
@@ -179,6 +232,7 @@ button {
 ========================================================= */
 
 .logo {
+
     width: 85px;
     height: 85px;
 
@@ -186,6 +240,7 @@ button {
         0 auto 20px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -194,6 +249,7 @@ button {
     font-size: 42px;
 
     background:
+
         linear-gradient(
             135deg,
             #00c6ff,
@@ -202,25 +258,35 @@ button {
         );
 
     box-shadow:
+
         0 15px 40px
-        rgba(0, 114, 255, 0.45);
+        rgba(
+            0,
+            114,
+            255,
+            0.45
+        );
 
     animation:
+
         logoFloat
         3s
         ease-in-out
         infinite;
 }
 
+
 @keyframes logoFloat {
 
     0%,
     100% {
+
         transform:
             translateY(0);
     }
 
     50% {
+
         transform:
             translateY(-7px);
     }
@@ -232,11 +298,15 @@ button {
 ========================================================= */
 
 .join-card h1 {
-    font-size: 30px;
 
-    margin-bottom: 8px;
+    font-size:
+        30px;
+
+    margin-bottom:
+        8px;
 
     background:
+
         linear-gradient(
             90deg,
             #ffffff,
@@ -251,67 +321,117 @@ button {
         transparent;
 }
 
+
 .join-card p {
+
     color:
-        rgba(255,255,255,0.65);
+        rgba(
+            255,
+            255,
+            255,
+            0.65
+        );
 
-    margin-bottom: 25px;
+    margin-bottom:
+        25px;
 
-    font-size: 14px;
+    font-size:
+        14px;
 }
 
 
 /* =========================================================
-   INPUTS
+   INPUT
 ========================================================= */
 
 .join-card input {
+
     width: 100%;
+
     height: 54px;
 
     padding:
         0 18px;
 
-    margin-bottom: 15px;
+    margin-bottom:
+        15px;
 
-    border-radius: 14px;
+    border-radius:
+        14px;
 
-    outline: none;
+    outline:
+        none;
 
     border:
         1px solid
-        rgba(255,255,255,0.12);
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
 
     background:
-        rgba(255,255,255,0.07);
+        rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
 
     color:
         #ffffff;
 
-    font-size: 16px;
+    font-size:
+        16px;
 
     transition:
         0.3s;
 }
 
+
 .join-card input::placeholder {
+
     color:
-        rgba(255,255,255,0.45);
+        rgba(
+            255,
+            255,
+            255,
+            0.45
+        );
 }
 
+
 .join-card input:focus {
+
     border-color:
         #38bdf8;
 
     background:
-        rgba(56,189,248,0.10);
+        rgba(
+            56,
+            189,
+            248,
+            0.10
+        );
 
     box-shadow:
+
         0 0 0 4px
-        rgba(56,189,248,0.12),
+        rgba(
+            56,
+            189,
+            248,
+            0.12
+        ),
 
         0 0 25px
-        rgba(56,189,248,0.15);
+        rgba(
+            56,
+            189,
+            248,
+            0.15
+        );
 }
 
 
@@ -320,19 +440,25 @@ button {
 ========================================================= */
 
 .primary-btn {
+
     width: 100%;
+
     height: 54px;
 
-    border-radius: 14px;
+    border-radius:
+        14px;
 
     color:
         #ffffff;
 
-    font-size: 16px;
+    font-size:
+        16px;
 
-    font-weight: 700;
+    font-weight:
+        700;
 
     background:
+
         linear-gradient(
             135deg,
             #00c6ff,
@@ -341,33 +467,50 @@ button {
         );
 
     box-shadow:
+
         0 10px 30px
-        rgba(0,114,255,0.35);
+        rgba(
+            0,
+            114,
+            255,
+            0.35
+        );
 
     transition:
         0.3s;
 }
 
+
 .primary-btn:hover {
+
     transform:
         translateY(-3px);
 
     box-shadow:
+
         0 15px 40px
-        rgba(0,114,255,0.5);
+        rgba(
+            0,
+            114,
+            255,
+            0.5
+        );
 }
 
+
 .primary-btn:active {
+
     transform:
         scale(0.97);
 }
 
 
 /* =========================================================
-   ERROR
+   ERROR MESSAGE
 ========================================================= */
 
 .error-message {
+
     color:
         #ff6b81 !important;
 
@@ -387,7 +530,9 @@ button {
 ========================================================= */
 
 .meeting-screen {
+
     width: 100%;
+
     height: 100dvh;
 
     display: flex;
@@ -397,15 +542,26 @@ button {
     overflow: hidden;
 
     background:
+
         radial-gradient(
             circle at 20% 10%,
-            rgba(0, 114, 255, 0.12),
+            rgba(
+                0,
+                114,
+                255,
+                0.12
+            ),
             transparent 30%
         ),
 
         radial-gradient(
             circle at 80% 90%,
-            rgba(124, 58, 237, 0.12),
+            rgba(
+                124,
+                58,
+                237,
+                0.12
+            ),
             transparent 30%
         ),
 
@@ -418,56 +574,95 @@ button {
 ========================================================= */
 
 .top-bar {
-    min-height: 65px;
 
-    display: flex;
+    min-height:
+        65px;
 
-    align-items: center;
+    display:
+        flex;
 
-    justify-content: space-between;
+    align-items:
+        center;
 
-    gap: 15px;
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
 
     padding:
         0 22px;
 
     background:
-        rgba(10,15,35,0.85);
+        rgba(
+            10,
+            15,
+            35,
+            0.85
+        );
 
     backdrop-filter:
         blur(20px);
 
     border-bottom:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 
-    z-index: 50;
+    z-index:
+        50;
 }
+
+
+/* =========================================================
+   BRAND
+========================================================= */
 
 .brand {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 10px;
+    align-items:
+        center;
 
-    font-size: 18px;
+    gap:
+        10px;
 
-    font-weight: 700;
+    font-size:
+        18px;
+
+    font-weight:
+        700;
 }
 
+
 .brand-icon {
-    width: 38px;
-    height: 38px;
 
-    display: flex;
+    width:
+        38px;
 
-    align-items: center;
-    justify-content: center;
+    height:
+        38px;
 
-    border-radius: 12px;
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        12px;
 
     background:
+
         linear-gradient(
             135deg,
             #00c6ff,
@@ -475,8 +670,14 @@ button {
         );
 
     box-shadow:
+
         0 5px 20px
-        rgba(0,150,255,0.35);
+        rgba(
+            0,
+            150,
+            255,
+            0.35
+        );
 }
 
 
@@ -485,45 +686,73 @@ button {
 ========================================================= */
 
 .meeting-info {
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 8px;
+    align-items:
+        center;
+
+    gap:
+        8px;
 
     color:
-        rgba(255,255,255,0.65);
+        rgba(
+            255,
+            255,
+            255,
+            0.65
+        );
 
-    font-size: 13px;
+    font-size:
+        13px;
 }
 
+
 .meeting-info strong {
+
     color:
         #7dd3fc;
 }
 
+
 .small-btn {
+
     padding:
         8px 13px;
 
-    border-radius: 9px;
+    border-radius:
+        9px;
 
     color:
         #ffffff;
 
     background:
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 
     border:
         1px solid
-        rgba(255,255,255,0.1);
+        rgba(
+            255,
+            255,
+            255,
+            0.1
+        );
 
     transition:
         0.25s;
 }
 
+
 .small-btn:hover {
+
     background:
+
         linear-gradient(
             135deg,
             #00c6ff,
@@ -536,19 +765,25 @@ button {
 
 
 /* =========================================================
-   MAIN
+   MAIN CONTAINER
 ========================================================= */
 
 .main-container {
-    flex: 1;
 
-    min-height: 0;
+    flex:
+        1;
 
-    display: flex;
+    min-height:
+        0;
 
-    position: relative;
+    display:
+        flex;
 
-    overflow: hidden;
+    position:
+        relative;
+
+    overflow:
+        hidden;
 }
 
 
@@ -557,58 +792,137 @@ button {
 ========================================================= */
 
 .video-section {
-    flex: 1;
 
-    min-width: 0;
-    min-height: 0;
+    flex:
+        1;
 
-    display: flex;
+    min-width:
+        0;
 
-    flex-direction: column;
-}
+    min-height:
+        0;
 
-.video-grid {
-    flex: 1;
+    display:
+        flex;
 
-    min-height: 0;
+    flex-direction:
+        column;
 
-    display: grid;
+    overflow:
+        hidden;
 
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(280px, 1fr)
-        );
+    background:
 
-    gap: 15px;
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(
+                0,
+                198,
+                255,
+                0.08
+            ),
+            transparent 35%
+        ),
 
-    padding: 18px;
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(
+                124,
+                58,
+                237,
+                0.08
+            ),
+            transparent 35%
+        ),
 
-    overflow-y: auto;
-
-    align-content: center;
+        #070b18;
 }
 
 
 /* =========================================================
-   VIDEO CARD
+   RESPONSIVE VIDEO GRID
+========================================================= */
+
+.video-grid {
+
+    flex:
+        1;
+
+    width:
+        100%;
+
+    min-width:
+        0;
+
+    min-height:
+        0;
+
+    display:
+        grid;
+
+    grid-template-columns:
+
+        repeat(
+            auto-fit,
+            minmax(
+                280px,
+                1fr
+            )
+        );
+
+    gap:
+        14px;
+
+    padding:
+        15px;
+
+    overflow-y:
+        auto;
+
+    overflow-x:
+        hidden;
+
+    align-content:
+        center;
+
+    justify-content:
+        center;
+
+    scrollbar-width:
+        thin;
+
+    scrollbar-color:
+        #00c6ff
+        transparent;
+}
+
+
+/* =========================================================
+   CAMERA BOX
 ========================================================= */
 
 .video-container {
-    position: relative;
 
-    width: 100%;
+    position:
+        relative;
+
+    width:
+        100%;
 
     aspect-ratio:
         16 / 9;
 
-    min-height: 180px;
+    min-width:
+        0;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
-    border-radius: 18px;
+    border-radius:
+        16px;
 
     background:
+
         linear-gradient(
             135deg,
             #111827,
@@ -617,81 +931,302 @@ button {
 
     border:
         2px solid
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 
     box-shadow:
-        0 15px 40px
-        rgba(0,0,0,0.45);
+
+        0 12px 35px
+        rgba(
+            0,
+            0,
+            0,
+            0.45
+        );
+
+    cursor:
+        pointer;
 
     transition:
-        0.3s;
+
+        transform
+        0.25s ease,
+
+        box-shadow
+        0.25s ease,
+
+        border-color
+        0.25s ease;
 }
+
+
+/* Camera Hover */
 
 .video-container:hover {
+
     transform:
-        translateY(-3px);
+        scale(1.01);
 
     border-color:
-        rgba(56,189,248,0.5);
+
+        rgba(
+            56,
+            189,
+            248,
+            0.6
+        );
 
     box-shadow:
-        0 20px 50px
-        rgba(0,114,255,0.18);
+
+        0 15px 45px
+        rgba(
+            0,
+            114,
+            255,
+            0.25
+        );
 }
+
+
+/* =========================================================
+   VIDEO ELEMENT
+========================================================= */
 
 .video-container video {
-    width: 100%;
-    height: 100%;
 
-    display: block;
+    position:
+        absolute;
 
-    object-fit: cover;
+    top:
+        0;
+
+    left:
+        0;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
 
     background:
-        #111827;
+        #050505;
 }
 
+
+/* Local Camera Mirror */
+
 .local-video video {
+
     transform:
         scaleX(-1);
 }
 
 
 /* =========================================================
-   VIDEO NAME
+   CAMERA NAME
 ========================================================= */
 
 .video-name {
-    position: absolute;
 
-    left: 12px;
-    bottom: 12px;
+    position:
+        absolute;
+
+    left:
+        12px;
+
+    bottom:
+        12px;
+
+    z-index:
+        10;
+
+    max-width:
+        75%;
 
     padding:
         7px 12px;
 
-    border-radius: 10px;
+    overflow:
+        hidden;
 
-    background:
-        rgba(0,0,0,0.65);
+    text-overflow:
+        ellipsis;
 
-    backdrop-filter:
-        blur(10px);
+    white-space:
+        nowrap;
 
     color:
         #ffffff;
 
-    font-size: 13px;
+    font-size:
+        13px;
 
-    font-weight: 600;
+    font-weight:
+        600;
 
-    max-width: 80%;
+    border-radius:
+        9px;
 
-    overflow: hidden;
+    background:
 
-    text-overflow: ellipsis;
+        rgba(
+            0,
+            0,
+            0,
+            0.70
+        );
 
-    white-space: nowrap;
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.12
+        );
+}
+
+
+/* =========================================================
+   DOUBLE CLICK FULLSCREEN CAMERA
+========================================================= */
+
+.video-container.camera-fullscreen {
+
+    position:
+        fixed !important;
+
+    top:
+        0 !important;
+
+    left:
+        0 !important;
+
+    width:
+        100vw !important;
+
+    height:
+        100dvh !important;
+
+    min-width:
+        100vw !important;
+
+    min-height:
+        100dvh !important;
+
+    max-width:
+        none !important;
+
+    max-height:
+        none !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    aspect-ratio:
+        auto !important;
+
+    z-index:
+        999999 !important;
+
+    border-radius:
+        0 !important;
+
+    border:
+        none !important;
+
+    background:
+        #000000 !important;
+
+    box-shadow:
+        none !important;
+
+    transform:
+        none !important;
+
+    cursor:
+        pointer;
+}
+
+
+/* Fullscreen Video */
+
+.video-container.camera-fullscreen video {
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        0;
+
+    width:
+        100% !important;
+
+    height:
+        100% !important;
+
+    object-fit:
+        contain !important;
+
+    background:
+        #000000;
+}
+
+
+/* Fullscreen Camera Name */
+
+.video-container.camera-fullscreen
+.video-name {
+
+    left:
+        20px;
+
+    bottom:
+        20px;
+
+    max-width:
+        80%;
+
+    padding:
+        9px 15px;
+
+    font-size:
+        15px;
+
+    border-radius:
+        10px;
+
+    background:
+
+        rgba(
+            0,
+            0,
+            0,
+            0.80
+        );
 }
 
 
@@ -700,36 +1235,56 @@ button {
 ========================================================= */
 
 .controls {
-    min-height: 90px;
 
-    display: flex;
+    min-height:
+        90px;
 
-    align-items: center;
+    display:
+        flex;
 
-    justify-content: center;
+    align-items:
+        center;
 
-    gap: 12px;
+    justify-content:
+        center;
+
+    gap:
+        12px;
 
     padding:
         12px 18px;
 
     background:
-        rgba(8,12,28,0.95);
+
+        rgba(
+            8,
+            12,
+            28,
+            0.95
+        );
 
     backdrop-filter:
         blur(20px);
 
     border-top:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 
-    overflow-x: auto;
+    overflow-x:
+        auto;
 
     scrollbar-width:
         none;
 }
 
+
 .controls::-webkit-scrollbar {
+
     display:
         none;
 }
@@ -740,6 +1295,7 @@ button {
 ========================================================= */
 
 .control-btn {
+
     flex:
         0 0 auto;
 
@@ -749,65 +1305,118 @@ button {
     height:
         68px;
 
-    display: flex;
+    display:
+        flex;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
-    align-items: center;
+    align-items:
+        center;
 
-    justify-content: center;
+    justify-content:
+        center;
 
-    gap: 5px;
+    gap:
+        5px;
 
-    border-radius: 15px;
+    border-radius:
+        15px;
 
     color:
         #ffffff;
 
     background:
-        rgba(255,255,255,0.07);
+
+        rgba(
+            255,
+            255,
+            255,
+            0.07
+        );
 
     border:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 
     transition:
         0.25s;
 }
 
+
 .control-btn span {
+
     font-size:
         23px;
 }
 
+
 .control-btn small {
+
     font-size:
         10px;
 
     color:
-        rgba(255,255,255,0.7);
+        rgba(
+            255,
+            255,
+            255,
+            0.7
+        );
 }
 
+
 .control-btn:hover {
+
     transform:
         translateY(-4px);
 
     background:
+
         linear-gradient(
             135deg,
-            rgba(0,198,255,0.25),
-            rgba(124,58,237,0.25)
+            rgba(
+                0,
+                198,
+                255,
+                0.25
+            ),
+            rgba(
+                124,
+                58,
+                237,
+                0.25
+            )
         );
 
     border-color:
-        rgba(125,211,252,0.5);
+
+        rgba(
+            125,
+            211,
+            252,
+            0.5
+        );
 
     box-shadow:
+
         0 8px 25px
-        rgba(0,114,255,0.2);
+        rgba(
+            0,
+            114,
+            255,
+            0.2
+        );
 }
 
+
 .control-btn:active {
+
     transform:
         scale(0.94);
 }
@@ -818,7 +1427,9 @@ button {
 ========================================================= */
 
 .control-btn.disabled {
+
     background:
+
         linear-gradient(
             135deg,
             #ef4444,
@@ -826,11 +1437,23 @@ button {
         );
 
     border-color:
-        rgba(255,255,255,0.2);
+
+        rgba(
+            255,
+            255,
+            255,
+            0.2
+        );
 
     box-shadow:
+
         0 8px 25px
-        rgba(239,68,68,0.3);
+        rgba(
+            239,
+            68,
+            68,
+            0.3
+        );
 }
 
 
@@ -839,7 +1462,9 @@ button {
 ========================================================= */
 
 .leave-btn {
+
     background:
+
         linear-gradient(
             135deg,
             #ff416c,
@@ -847,15 +1472,30 @@ button {
         );
 
     border-color:
-        rgba(255,255,255,0.2);
+
+        rgba(
+            255,
+            255,
+            255,
+            0.2
+        );
 
     box-shadow:
+
         0 8px 25px
-        rgba(220,38,38,0.3);
+        rgba(
+            220,
+            38,
+            38,
+            0.3
+        );
 }
 
+
 .leave-btn:hover {
+
     background:
+
         linear-gradient(
             135deg,
             #ff1744,
@@ -869,6 +1509,7 @@ button {
 ========================================================= */
 
 .side-panel {
+
     width:
         360px;
 
@@ -882,21 +1523,38 @@ button {
         column;
 
     background:
-        rgba(15,23,42,0.95);
+
+        rgba(
+            15,
+            23,
+            42,
+            0.95
+        );
 
     backdrop-filter:
         blur(25px);
 
     border-left:
         1px solid
-        rgba(255,255,255,0.1);
+        rgba(
+            255,
+            255,
+            255,
+            0.1
+        );
 
     z-index:
         200;
 
     box-shadow:
+
         -15px 0 50px
-        rgba(0,0,0,0.35);
+        rgba(
+            0,
+            0,
+            0,
+            0.35
+        );
 }
 
 
@@ -905,6 +1563,7 @@ button {
 ========================================================= */
 
 .panel-header {
+
     min-height:
         62px;
 
@@ -921,23 +1580,47 @@ button {
         0 18px;
 
     background:
+
         linear-gradient(
             135deg,
-            rgba(0,198,255,0.12),
-            rgba(124,58,237,0.12)
+            rgba(
+                0,
+                198,
+                255,
+                0.12
+            ),
+            rgba(
+                124,
+                58,
+                237,
+                0.12
+            )
         );
 
     border-bottom:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 }
 
+
 .panel-header h2 {
+
     font-size:
         18px;
 }
 
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
 .close-btn {
+
     width:
         36px;
 
@@ -951,13 +1634,20 @@ button {
         #ffffff;
 
     background:
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 
     transition:
         0.25s;
 }
 
+
 .close-btn:hover {
+
     background:
         #ef4444;
 
@@ -967,10 +1657,11 @@ button {
 
 
 /* =========================================================
-   PARTICIPANTS
+   PANEL CONTENT
 ========================================================= */
 
 .panel-content {
+
     flex:
         1;
 
@@ -981,7 +1672,13 @@ button {
         14px;
 }
 
+
+/* =========================================================
+   PARTICIPANT ITEM
+========================================================= */
+
 .participant-item {
+
     display:
         flex;
 
@@ -1001,29 +1698,58 @@ button {
         12px;
 
     background:
-        rgba(255,255,255,0.04);
+        rgba(
+            255,
+            255,
+            255,
+            0.04
+        );
 
     border:
         1px solid
-        rgba(255,255,255,0.05);
+        rgba(
+            255,
+            255,
+            255,
+            0.05
+        );
 
     transition:
         0.25s;
 }
 
+
 .participant-item:hover {
+
     background:
+
         linear-gradient(
             135deg,
-            rgba(0,198,255,0.12),
-            rgba(124,58,237,0.12)
+            rgba(
+                0,
+                198,
+                255,
+                0.12
+            ),
+            rgba(
+                124,
+                58,
+                237,
+                0.12
+            )
         );
 
     transform:
         translateX(-3px);
 }
 
+
+/* =========================================================
+   PARTICIPANT AVATAR
+========================================================= */
+
 .participant-avatar {
+
     width:
         40px;
 
@@ -1046,6 +1772,7 @@ button {
         12px;
 
     background:
+
         linear-gradient(
             135deg,
             #00c6ff,
@@ -1053,8 +1780,14 @@ button {
         );
 
     box-shadow:
+
         0 5px 15px
-        rgba(0,114,255,0.3);
+        rgba(
+            0,
+            114,
+            255,
+            0.3
+        );
 }
 
 
@@ -1063,6 +1796,7 @@ button {
 ========================================================= */
 
 .chat-container {
+
     flex:
         1;
 
@@ -1076,7 +1810,9 @@ button {
         column;
 }
 
+
 .messages {
+
     flex:
         1;
 
@@ -1087,12 +1823,19 @@ button {
         16px;
 }
 
+
 .system-message {
+
     text-align:
         center;
 
     color:
-        rgba(255,255,255,0.4);
+        rgba(
+            255,
+            255,
+            255,
+            0.4
+        );
 
     font-size:
         12px;
@@ -1101,12 +1844,20 @@ button {
         12px;
 }
 
+
+/* =========================================================
+   CHAT MESSAGE
+========================================================= */
+
 .chat-message {
+
     margin-bottom:
         16px;
 }
 
+
 .chat-message-name {
+
     color:
         #38bdf8;
 
@@ -1120,7 +1871,9 @@ button {
         5px;
 }
 
+
 .chat-message-text {
+
     display:
         inline-block;
 
@@ -1134,15 +1887,31 @@ button {
         12px;
 
     background:
+
         linear-gradient(
             135deg,
-            rgba(0,198,255,0.12),
-            rgba(124,58,237,0.12)
+            rgba(
+                0,
+                198,
+                255,
+                0.12
+            ),
+            rgba(
+                124,
+                58,
+                237,
+                0.12
+            )
         );
 
     border:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 
     color:
         #eeeeee;
@@ -1160,6 +1929,7 @@ button {
 ========================================================= */
 
 .chat-input-area {
+
     display:
         flex;
 
@@ -1171,10 +1941,17 @@ button {
 
     border-top:
         1px solid
-        rgba(255,255,255,0.08);
+        rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
 }
 
+
 .chat-input-area input {
+
     flex:
         1;
 
@@ -1195,25 +1972,45 @@ button {
 
     border:
         1px solid
-        rgba(255,255,255,0.1);
+        rgba(
+            255,
+            255,
+            255,
+            0.1
+        );
 
     background:
-        rgba(255,255,255,0.06);
+        rgba(
+            255,
+            255,
+            255,
+            0.06
+        );
 
     color:
         #ffffff;
 }
 
+
 .chat-input-area input:focus {
+
     border-color:
         #38bdf8;
 
     box-shadow:
+
         0 0 15px
-        rgba(56,189,248,0.15);
+        rgba(
+            56,
+            189,
+            248,
+            0.15
+        );
 }
 
+
 .chat-input-area button {
+
     height:
         44px;
 
@@ -1230,6 +2027,7 @@ button {
         700;
 
     background:
+
         linear-gradient(
             135deg,
             #00c6ff,
@@ -1240,13 +2038,21 @@ button {
         0.25s;
 }
 
+
 .chat-input-area button:hover {
+
     transform:
         translateY(-2px);
 
     box-shadow:
+
         0 8px 20px
-        rgba(0,114,255,0.3);
+        rgba(
+            0,
+            114,
+            255,
+            0.3
+        );
 }
 
 
@@ -1257,6 +2063,7 @@ button {
 @media (max-width: 900px) {
 
     .side-panel {
+
         position:
             absolute;
 
@@ -1273,8 +2080,57 @@ button {
             100%;
 
         box-shadow:
+
             -20px 0 60px
-            rgba(0,0,0,0.5);
+            rgba(
+                0,
+                0,
+                0,
+                0.5
+            );
+    }
+
+
+    .video-grid {
+
+        grid-template-columns:
+
+            repeat(
+                2,
+                minmax(
+                    220px,
+                    1fr
+                )
+            );
+
+        gap:
+            10px;
+
+        padding:
+            10px;
+    }
+
+
+    .video-container {
+
+        border-radius:
+            13px;
+    }
+
+
+    .video-name {
+
+        left:
+            8px;
+
+        bottom:
+            8px;
+
+        font-size:
+            11px;
+
+        padding:
+            6px 9px;
     }
 
 }
@@ -1286,9 +2142,57 @@ button {
 
 @media (max-width: 600px) {
 
-    /* HEADER */
+
+    /* JOIN SCREEN */
+
+    .join-screen {
+
+        padding:
+            15px;
+    }
+
+
+    .join-card {
+
+        padding:
+            32px 20px;
+
+        border-radius:
+            22px;
+    }
+
+
+    .logo {
+
+        width:
+            70px;
+
+        height:
+            70px;
+
+        font-size:
+            34px;
+    }
+
+
+    .join-card h1 {
+
+        font-size:
+            25px;
+    }
+
+
+    .join-card input {
+
+        height:
+            52px;
+    }
+
+
+    /* TOP BAR */
 
     .top-bar {
+
         min-height:
             55px;
 
@@ -1299,7 +2203,9 @@ button {
             7px;
     }
 
+
     .brand {
+
         font-size:
             13px;
 
@@ -1307,7 +2213,9 @@ button {
             6px;
     }
 
+
     .brand-icon {
+
         width:
             32px;
 
@@ -1321,7 +2229,9 @@ button {
             17px;
     }
 
+
     .meeting-info {
+
         gap:
             4px;
 
@@ -1329,17 +2239,32 @@ button {
             9px;
     }
 
+
     .meeting-info > span {
+
         display:
             none;
     }
 
+
     .meeting-info strong {
+
         max-width:
             75px;
+
+        overflow:
+            hidden;
+
+        text-overflow:
+            ellipsis;
+
+        white-space:
+            nowrap;
     }
 
+
     .small-btn {
+
         padding:
             7px 8px;
 
@@ -1348,11 +2273,12 @@ button {
     }
 
 
-    /* VIDEO */
+    /* CAMERA GRID */
 
     .video-grid {
+
         grid-template-columns:
-            1fr;
+            1fr !important;
 
         gap:
             9px;
@@ -1362,23 +2288,58 @@ button {
 
         align-content:
             start;
+
+        overflow-y:
+            auto;
     }
 
+
     .video-container {
-        min-height:
-            0;
+
+        width:
+            100%;
 
         aspect-ratio:
             16 / 10;
 
+        min-height:
+            0;
+
         border-radius:
-            14px;
+            13px;
+    }
+
+
+    .video-container video {
+
+        object-fit:
+            cover;
+    }
+
+
+    .video-name {
+
+        left:
+            8px;
+
+        bottom:
+            8px;
+
+        padding:
+            6px 9px;
+
+        font-size:
+            11px;
+
+        border-radius:
+            8px;
     }
 
 
     /* CONTROLS */
 
     .controls {
+
         min-height:
             76px;
 
@@ -1392,13 +2353,18 @@ button {
             7px 8px;
 
         padding-bottom:
+
             max(
                 7px,
-                env(safe-area-inset-bottom)
+                env(
+                    safe-area-inset-bottom
+                )
             );
     }
 
+
     .control-btn {
+
         min-width:
             63px;
 
@@ -1409,20 +2375,25 @@ button {
             12px;
     }
 
+
     .control-btn span {
+
         font-size:
             19px;
     }
 
+
     .control-btn small {
+
         font-size:
             8px;
     }
 
 
-    /* SIDE PANEL FULL SCREEN */
+    /* SIDE PANEL */
 
     .side-panel {
+
         position:
             absolute;
 
@@ -1443,40 +2414,42 @@ button {
     }
 
 
-    /* JOIN CARD */
+    /* FULLSCREEN CAMERA */
 
-    .join-screen {
-        padding:
-            15px;
-    }
+    .video-container.camera-fullscreen {
 
-    .join-card {
-        padding:
-            32px 20px;
+        width:
+            100vw !important;
+
+        height:
+            100dvh !important;
 
         border-radius:
-            22px;
+            0 !important;
     }
 
-    .logo {
-        width:
-            70px;
 
-        height:
-            70px;
+    .video-container.camera-fullscreen video {
+
+        object-fit:
+            contain !important;
+    }
+
+
+    .video-container.camera-fullscreen
+    .video-name {
+
+        left:
+            12px;
+
+        bottom:
+            15px;
 
         font-size:
-            34px;
-    }
+            13px;
 
-    .join-card h1 {
-        font-size:
-            25px;
-    }
-
-    .join-card input {
-        height:
-            52px;
+        padding:
+            8px 12px;
     }
 
 }
@@ -1489,11 +2462,14 @@ button {
 @media (max-width: 380px) {
 
     .brand {
+
         font-size:
             11px;
     }
 
+
     .brand-icon {
+
         width:
             29px;
 
@@ -1501,12 +2477,16 @@ button {
             29px;
     }
 
+
     .meeting-info strong {
+
         max-width:
             60px;
     }
 
+
     .small-btn {
+
         padding:
             6px;
 
@@ -1514,7 +2494,29 @@ button {
             8px;
     }
 
+
+    .video-grid {
+
+        padding:
+            6px;
+
+        gap:
+            7px;
+    }
+
+
+    .video-container {
+
+        aspect-ratio:
+            16 / 10;
+
+        border-radius:
+            10px;
+    }
+
+
     .control-btn {
+
         min-width:
             56px;
 
@@ -1522,12 +2524,16 @@ button {
             54px;
     }
 
+
     .control-btn span {
+
         font-size:
             17px;
     }
 
+
     .control-btn small {
+
         font-size:
             7px;
     }
@@ -1543,32 +2549,48 @@ button {
 and (orientation: landscape) {
 
     .top-bar {
+
         min-height:
             48px;
     }
 
+
     .video-grid {
+
         grid-template-columns:
+
             repeat(
-                auto-fit,
-                minmax(220px, 1fr)
-            );
+                2,
+                minmax(
+                    220px,
+                    1fr
+                )
+            ) !important;
+
+        gap:
+            8px;
 
         padding:
-            7px;
+            8px;
     }
 
+
     .video-container {
+
         aspect-ratio:
             16 / 9;
     }
 
+
     .controls {
+
         min-height:
             65px;
     }
 
+
     .control-btn {
+
         height:
             50px;
     }
@@ -1581,6 +2603,7 @@ and (orientation: landscape) {
 ========================================================= */
 
 ::-webkit-scrollbar {
+
     width:
         6px;
 
@@ -1588,13 +2611,23 @@ and (orientation: landscape) {
         6px;
 }
 
+
 ::-webkit-scrollbar-track {
+
     background:
-        rgba(255,255,255,0.03);
+        rgba(
+            255,
+            255,
+            255,
+            0.03
+        );
 }
 
+
 ::-webkit-scrollbar-thumb {
+
     background:
+
         linear-gradient(
             #00c6ff,
             #7c3aed
@@ -1604,82 +2637,31 @@ and (orientation: landscape) {
         10px;
 }
 
-/* =========================================
-   DOUBLE CLICK CAMERA FULLSCREEN
-========================================= */
 
-.video-container {
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* =========================================================
+   FULLSCREEN CAMERA - PREVENT SELECTION
+========================================================= */
+
+.camera-fullscreen,
+.camera-fullscreen * {
+
+    user-select:
+        none;
+
+    -webkit-user-select:
+        none;
 }
 
-/* Fullscreen camera */
 
-.video-container.camera-fullscreen {
-    position: fixed !important;
+/* =========================================================
+   SMOOTH VIDEO
+========================================================= */
 
-    top: 0 !important;
-    left: 0 !important;
+video {
 
-    width: 100vw !important;
-    height: 100dvh !important;
+    max-width:
+        100%;
 
-    max-width: none !important;
-    max-height: none !important;
-
-    aspect-ratio: auto !important;
-
-    z-index: 99999 !important;
-
-    border-radius: 0 !important;
-
-    background: #000 !important;
-
-    margin: 0 !important;
-
-    box-shadow: none !important;
-}
-
-.video-container.camera-fullscreen video {
-    width: 100% !important;
-    height: 100% !important;
-
-    object-fit: contain !important;
-
-    background: #000 !important;
-}
-
-/* Camera name fullscreen mode */
-
-.video-container.camera-fullscreen .video-name {
-    left: 20px;
-    bottom: 20px;
-
-    padding:
-        10px 16px;
-
-    font-size: 15px;
-
-    border-radius: 10px;
-
-    background:
-        rgba(0, 0, 0, 0.75);
-
-    z-index: 10;
-}
-
-/* Mobile */
-
-@media (max-width: 600px) {
-
-    .video-container.camera-fullscreen .video-name {
-        left: 12px;
-        bottom: 15px;
-
-        font-size: 13px;
-
-        padding:
-            8px 12px;
-    }
-
+    max-height:
+        100%;
 }
