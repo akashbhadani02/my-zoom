@@ -464,7 +464,7 @@ socket.on(
 
             const peerConnection =
                 peerConnections[
-                    sender
+                sender
                 ];
 
 
@@ -510,7 +510,7 @@ socket.on(
 
             const peerConnection =
                 peerConnections[
-                    sender
+                sender
                 ];
 
 
@@ -553,7 +553,7 @@ function createPeerConnection(
 
     if (
         peerConnections[
-            socketId
+        socketId
         ]
     ) {
 
@@ -826,8 +826,8 @@ function addParticipant(
 
         <span>
             ${escapeHtml(
-                userName || "Participant"
-            )}
+        userName || "Participant"
+    )}
         </span>
 
     `;
@@ -892,7 +892,7 @@ socket.on(
 
         if (
             peerConnections[
-                socketId
+            socketId
             ]
         ) {
 
@@ -1124,7 +1124,7 @@ async function toggleScreenShare() {
 
             const peerConnection =
                 peerConnections[
-                    socketId
+                socketId
                 ];
 
 
@@ -1221,7 +1221,7 @@ async function stopScreenShare() {
 
         const peerConnection =
             peerConnections[
-                socketId
+            socketId
             ];
 
 
@@ -1498,14 +1498,14 @@ function addChatMessage(
 
         <div class="chat-message-name">
             ${escapeHtml(
-                userName
-            )}
+        userName
+    )}
         </div>
 
         <div class="chat-message-text">
             ${escapeHtml(
-                message
-            )}
+        message
+    )}
         </div>
 
     `;
@@ -1651,7 +1651,7 @@ function leaveMeeting() {
     ).forEach(
         key =>
             delete peerConnections[
-                key
+            key
             ]
     );
 
