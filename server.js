@@ -1,158 +1,580 @@
+// ==========================================
+// EXPRESS
+// ==========================================
+
 const express = require("express");
+
+
+// ==========================================
+// HTTP
+// ==========================================
+
 const http = require("http");
+
+
+// ==========================================
+// SOCKET.IO
+// ==========================================
+
 const { Server } = require("socket.io");
+
+
+// ==========================================
+// PATH
+// ==========================================
+
 const path = require("path");
 
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
 
-const PORT = process.env.PORT || 3000;
+// ==========================================
+// APP
+// ==========================================
 
-// Serve frontend
-app.use(express.static(path.join(__dirname, "public")));
+const app =
+    express();
 
-// Meeting rooms
+
+// ==========================================
+// HTTP SERVER
+// ==========================================
+
+const server =
+    http.createServer(
+        app
+    );
+
+
+// ==========================================
+// SOCKET.IO SERVER
+// ==========================================
+
+const io =
+    new Server(
+        server
+    );
+
+
+// ==========================================
+// PORT
+// ==========================================
+
+const PORT =
+    process.env.PORT ||
+    3000;
+
+
+// ==========================================
+// SERVE FRONTEND
+// ==========================================
+
+app.use(
+    express.static(
+        path.join(
+            __dirname,
+            "public"
+        )
+    )
+);
+
+
+// ==========================================
+// MEETING ROOMS
+// ==========================================
+
 const rooms = {};
 
-io.on("connection", (socket) => {
 
-    console.log("User connected:", socket.id);
+// ==========================================
+// SOCKET CONNECTION
+// ==========================================
 
-    // Join meeting
-    socket.on("join-room", ({ roomId, userName }) => {
-
-        socket.join(roomId);
-
-        socket.roomId = roomId;
-        socket.userName = userName;
-
-        if (!rooms[roomId]) {
-            rooms[roomId] = [];
-        }
-
-        rooms[roomId].push({
-            socketId: socket.id,
-            userName: userName
-        });
-
-        // Send existing users to new user
-        const existingUsers = rooms[roomId].filter(
-            user => user.socketId !== socket.id
-        );
-
-        socket.emit("existing-users", existingUsers);
-
-        // Notify others
-        socket.to(roomId).emit("user-joined", {
-            socketId: socket.id,
-            userName: userName
-        });
+io.on(
+    "connection",
+    (socket) => {
 
         console.log(
-            `${userName} joined room: ${roomId}`
-        );
-    });
-
-    // WebRTC Offer
-    socket.on("offer", ({ target, offer }) => {
-
-        io.to(target).emit("offer", {
-            sender: socket.id,
-            offer
-        });
-
-    });
-
-    // WebRTC Answer
-    socket.on("answer", ({ target, answer }) => {
-
-        io.to(target).emit("answer", {
-            sender: socket.id,
-            answer
-        });
-
-    });
-
-    // ICE Candidate
-    socket.on("ice-candidate", ({ target, candidate }) => {
-
-        io.to(target).emit("ice-candidate", {
-            sender: socket.id,
-            candidate
-        });
-
-    });
-
-    // Chat Message
-    socket.on("chat-message", ({ roomId, userName, message }) => {
-
-        io.to(roomId).emit("chat-message", {
-            userName,
-            message
-        });
-
-    });
-
-    // Leave room
-    socket.on("leave-room", () => {
-        removeUser(socket);
-    });
-
-    // Disconnect
-    socket.on("disconnect", () => {
-
-        removeUser(socket);
-
-        console.log(
-            "User disconnected:",
+            "User connected:",
             socket.id
         );
 
-    });
 
-});
+        // ==================================
+        // JOIN MEETING ROOM
+        // ==================================
 
-function removeUser(socket) {
+        socket.on(
+            "join-room",
+            ({
+                roomId,
+                userName
+            }) => {
 
-    const roomId = socket.roomId;
+                // Validate
 
-    if (!roomId || !rooms[roomId]) {
+                if (
+                    !roomId ||
+                    !userName
+                ) {
+
+                    return;
+
+                }
+
+
+                // Join Socket.IO Room
+
+                socket.join(
+                    roomId
+                );
+
+
+                // Save User Info
+
+                socket.roomId =
+                    roomId;
+
+                socket.userName =
+                    userName;
+
+
+                // Create Room
+
+                if (
+                    !rooms[
+                        roomId
+                    ]
+                ) {
+
+                    rooms[
+                        roomId
+                    ] = [];
+
+                }
+
+
+                // ==================================
+                // PREVENT DUPLICATE USER
+                // ==================================
+
+                const alreadyExists =
+                    rooms[
+                        roomId
+                    ].some(
+                        user =>
+                            user.socketId ===
+                            socket.id
+                    );
+
+
+                if (
+                    !alreadyExists
+                ) {
+
+                    rooms[
+                        roomId
+                    ].push({
+
+                        socketId:
+                            socket.id,
+
+                        userName:
+                            userName
+
+                    });
+
+                }
+
+
+                // ==================================
+                // GET EXISTING USERS
+                // ==================================
+
+                const existingUsers =
+                    rooms[
+                        roomId
+                    ].filter(
+                        user =>
+                            user.socketId !==
+                            socket.id
+                    );
+
+
+                // ==================================
+                // SEND EXISTING USERS
+                // ==================================
+
+                socket.emit(
+                    "existing-users",
+                    existingUsers
+                );
+
+
+                // ==================================
+                // NOTIFY OTHER USERS
+                // ==================================
+
+                socket
+                    .to(
+                        roomId
+                    )
+                    .emit(
+                        "user-joined",
+                        {
+
+                            socketId:
+                                socket.id,
+
+                            userName:
+                                userName
+
+                        }
+                    );
+
+
+                console.log(
+                    `${userName} joined room: ${roomId}`
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // WEBRTC OFFER
+        // IMPORTANT: FORWARD USER NAME
+        // ==========================================
+
+        socket.on(
+            "offer",
+            ({
+                target,
+                offer,
+                userName
+            }) => {
+
+                console.log(
+                    "Offer from:",
+                    socket.id,
+                    "Name:",
+                    userName,
+                    "To:",
+                    target
+                );
+
+
+                io.to(
+                    target
+                ).emit(
+                    "offer",
+                    {
+
+                        sender:
+                            socket.id,
+
+                        offer:
+                            offer,
+
+                        // Send actual name
+                        userName:
+                            userName ||
+                            socket.userName ||
+                            "Participant"
+
+                    }
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // WEBRTC ANSWER
+        // ==========================================
+
+        socket.on(
+            "answer",
+            ({
+                target,
+                answer
+            }) => {
+
+                console.log(
+                    "Answer from:",
+                    socket.id,
+                    "To:",
+                    target
+                );
+
+
+                io.to(
+                    target
+                ).emit(
+                    "answer",
+                    {
+
+                        sender:
+                            socket.id,
+
+                        answer:
+                            answer
+
+                    }
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // ICE CANDIDATE
+        // ==========================================
+
+        socket.on(
+            "ice-candidate",
+            ({
+                target,
+                candidate
+            }) => {
+
+                if (
+                    !target ||
+                    !candidate
+                ) {
+
+                    return;
+
+                }
+
+
+                io.to(
+                    target
+                ).emit(
+                    "ice-candidate",
+                    {
+
+                        sender:
+                            socket.id,
+
+                        candidate:
+                            candidate
+
+                    }
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // CHAT MESSAGE
+        // ==========================================
+
+        socket.on(
+            "chat-message",
+            ({
+                roomId,
+                userName,
+                message
+            }) => {
+
+                if (
+                    !roomId ||
+                    !message
+                ) {
+
+                    return;
+
+                }
+
+
+                io.to(
+                    roomId
+                ).emit(
+                    "chat-message",
+                    {
+
+                        userName:
+                            userName ||
+                            socket.userName ||
+                            "Participant",
+
+                        message:
+                            message
+
+                    }
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // LEAVE ROOM
+        // ==========================================
+
+        socket.on(
+            "leave-room",
+            () => {
+
+                removeUser(
+                    socket
+                );
+
+            }
+        );
+
+
+        // ==========================================
+        // DISCONNECT
+        // ==========================================
+
+        socket.on(
+            "disconnect",
+            () => {
+
+                removeUser(
+                    socket
+                );
+
+
+                console.log(
+                    "User disconnected:",
+                    socket.id
+                );
+
+            }
+        );
+
+    }
+);
+
+
+// ==========================================
+// REMOVE USER
+// ==========================================
+
+function removeUser(
+    socket
+) {
+
+    const roomId =
+        socket.roomId;
+
+
+    // No Room
+
+    if (
+        !roomId ||
+        !rooms[
+            roomId
+        ]
+    ) {
+
         return;
+
     }
 
-    rooms[roomId] = rooms[roomId].filter(
-        user => user.socketId !== socket.id
-    );
 
-    socket.to(roomId).emit(
-        "user-left",
-        socket.id
-    );
+    // ==================================
+    // REMOVE USER FROM ROOM
+    // ==================================
 
-    if (rooms[roomId].length === 0) {
-        delete rooms[roomId];
+    rooms[
+        roomId
+    ] =
+        rooms[
+            roomId
+        ].filter(
+            user =>
+                user.socketId !==
+                socket.id
+        );
+
+
+    // ==================================
+    // NOTIFY OTHER USERS
+    // ==================================
+
+    socket
+        .to(
+            roomId
+        )
+        .emit(
+            "user-left",
+            socket.id
+        );
+
+
+    // ==================================
+    // DELETE EMPTY ROOM
+    // ==================================
+
+    if (
+        rooms[
+            roomId
+        ].length === 0
+    ) {
+
+        delete rooms[
+            roomId
+        ];
+
     }
 
-    socket.leave(roomId);
+
+    // ==================================
+    // LEAVE SOCKET ROOM
+    // ==================================
+
+    socket.leave(
+        roomId
+    );
+
+
+    // ==================================
+    // RESET SOCKET DATA
+    // ==================================
+
+    socket.roomId =
+        null;
+
+    socket.userName =
+        null;
 
 }
 
-app.get("/", (req, res) => {
 
-    res.sendFile(
-        path.join(
-            __dirname,
-            "public",
-            "index.html"
-        )
-    );
+// ==========================================
+// HOME PAGE
+// ==========================================
 
-});
-server.listen(PORT, () => {
+app.get(
+    "/",
+    (req, res) => {
 
-    console.log(
-        `Server running on port ${PORT}`
-    );
+        res.sendFile(
+            path.join(
+                __dirname,
+                "public",
+                "index.html"
+            )
+        );
 
-});
+    }
+);
+
+
+// ==========================================
+// START SERVER
+// ==========================================
+
+server.listen(
+    PORT,
+    () => {
+
+        console.log(
+            `Server running on port ${PORT}`
+        );
+
+    }
+);

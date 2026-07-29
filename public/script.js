@@ -9,16 +9,27 @@ const socket = io();
 // DOM ELEMENTS
 // ==========================================
 
-const joinScreen = document.getElementById("joinScreen");
-const meetingScreen = document.getElementById("meetingScreen");
+const joinScreen =
+    document.getElementById("joinScreen");
 
-const userNameInput = document.getElementById("userName");
-const roomIdInput = document.getElementById("roomId");
+const meetingScreen =
+    document.getElementById("meetingScreen");
 
-const joinBtn = document.getElementById("joinBtn");
-const joinError = document.getElementById("joinError");
+const userNameInput =
+    document.getElementById("userName");
 
-const localVideo = document.getElementById("localVideo");
+const roomIdInput =
+    document.getElementById("roomId");
+
+const joinBtn =
+    document.getElementById("joinBtn");
+
+const joinError =
+    document.getElementById("joinError");
+
+const localVideo =
+    document.getElementById("localVideo");
+
 const localVideoContainer =
     document.getElementById("localVideoContainer");
 
@@ -100,6 +111,13 @@ const peerConnections = {};
 
 
 // ==========================================
+// STORE REMOTE USER NAMES
+// ==========================================
+
+const remoteUserNames = {};
+
+
+// ==========================================
 // WEBRTC CONFIG
 // ==========================================
 
@@ -108,11 +126,13 @@ const rtcConfiguration = {
     iceServers: [
 
         {
-            urls: "stun:stun.l.google.com:19302"
+            urls:
+                "stun:stun.l.google.com:19302"
         },
 
         {
-            urls: "stun:stun1.l.google.com:19302"
+            urls:
+                "stun:stun1.l.google.com:19302"
         }
 
     ]
@@ -139,7 +159,7 @@ async function joinMeeting() {
         roomIdInput.value.trim();
 
 
-    // Validate name
+    // Validate Name
 
     if (!userName) {
 
@@ -153,7 +173,7 @@ async function joinMeeting() {
     }
 
 
-    // Validate room ID
+    // Validate Room
 
     if (!roomId) {
 
@@ -172,19 +192,24 @@ async function joinMeeting() {
 
     try {
 
-        // Get camera and microphone
+        // ==================================
+        // GET CAMERA + MICROPHONE
+        // ==================================
 
         localStream =
-            await navigator.mediaDevices.getUserMedia({
+            await navigator.mediaDevices
+                .getUserMedia({
 
-                video: true,
+                    video: true,
 
-                audio: true
+                    audio: true
 
-            });
+                });
 
 
-        // Save user information
+        // ==================================
+        // SAVE USER DATA
+        // ==================================
 
         currentUserName =
             userName;
@@ -193,55 +218,73 @@ async function joinMeeting() {
             roomId;
 
 
-        // Show local video
+        // ==================================
+        // LOCAL VIDEO
+        // ==================================
 
         localVideo.srcObject =
             localStream;
 
 
-        // Update UI
+        // ==================================
+        // LOCAL USER NAME
+        // ==================================
 
         myParticipantName.textContent =
-            userName;
+            currentUserName;
 
-        // Show my actual name below my camera
+
         const localNameLabel =
-            localVideoContainer.querySelector(
-                ".video-name"
-            );
+            localVideoContainer
+                .querySelector(
+                    ".video-name"
+                );
+
 
         if (localNameLabel) {
 
             localNameLabel.textContent =
-                userName;
+                currentUserName;
 
         }
 
+
+        // ==================================
+        // ROOM ID
+        // ==================================
+
         currentRoom.textContent =
-            roomId;
+            currentRoomId;
 
 
-        // Hide join screen
+        // ==================================
+        // SHOW MEETING
+        // ==================================
 
         joinScreen.classList.add(
             "hidden"
         );
 
 
-        // Show meeting screen
-
         meetingScreen.classList.remove(
             "hidden"
         );
 
 
-        // Join Socket.IO room
+        // ==================================
+        // JOIN SOCKET ROOM
+        // ==================================
 
         socket.emit(
             "join-room",
             {
-                roomId: roomId,
-                userName: userName
+
+                roomId:
+                    currentRoomId,
+
+                userName:
+                    currentUserName
+
             }
         );
 
@@ -270,7 +313,9 @@ userNameInput.addEventListener(
     "keydown",
     function (event) {
 
-        if (event.key === "Enter") {
+        if (
+            event.key === "Enter"
+        ) {
 
             joinMeeting();
 
@@ -284,7 +329,9 @@ roomIdInput.addEventListener(
     "keydown",
     function (event) {
 
-        if (event.key === "Enter") {
+        if (
+            event.key === "Enter"
+        ) {
 
             joinMeeting();
 
@@ -312,9 +359,42 @@ socket.on(
             const user of users
         ) {
 
+            if (
+                !user ||
+                !user.socketId
+            ) {
+
+                continue;
+
+            }
+
+
+            const userName =
+                user.userName ||
+                "Participant";
+
+
+            // Save Name
+
+            remoteUserNames[
+                user.socketId
+            ] =
+                userName;
+
+
+            // Add participant
+
+            addParticipant(
+                user.socketId,
+                userName
+            );
+
+
+            // Create Offer
+
             await createOffer(
                 user.socketId,
-                user.userName
+                userName
             );
 
         }
@@ -337,9 +417,34 @@ socket.on(
         );
 
 
+        if (
+            !user ||
+            !user.socketId
+        ) {
+
+            return;
+
+        }
+
+
+        const userName =
+            user.userName ||
+            "Participant";
+
+
+        // Save Name
+
+        remoteUserNames[
+            user.socketId
+        ] =
+            userName;
+
+
+        // Add Participant
+
         addParticipant(
             user.socketId,
-            user.userName
+            userName
         );
 
     }
@@ -365,17 +470,24 @@ async function createOffer(
 
 
         const offer =
-            await peerConnection.createOffer();
+            await peerConnection
+                .createOffer();
 
 
-        await peerConnection.setLocalDescription(
-            offer
-        );
+        await peerConnection
+            .setLocalDescription(
+                offer
+            );
 
+
+        // ==================================
+        // SEND OFFER WITH MY NAME
+        // ==================================
 
         socket.emit(
             "offer",
             {
+
                 target:
                     targetSocketId,
 
@@ -384,6 +496,7 @@ async function createOffer(
 
                 userName:
                     currentUserName
+
             }
         );
 
@@ -414,28 +527,71 @@ socket.on(
 
         try {
 
+            // ==================================
+            // GET REAL USER NAME
+            // ==================================
+
+            const remoteName =
+                userName ||
+                remoteUserNames[
+                    sender
+                ] ||
+                "Participant";
+
+
+            // Save Name
+
+            remoteUserNames[
+                sender
+            ] =
+                remoteName;
+
+
+            // Add Participant
+
+            addParticipant(
+                sender,
+                remoteName
+            );
+
+
+            // ==================================
+            // CREATE PEER
+            // ==================================
+
             const peerConnection =
                 createPeerConnection(
                     sender,
-                    userName || "Participant"
+                    remoteName
                 );
 
 
-            await peerConnection.setRemoteDescription(
-                new RTCSessionDescription(
-                    offer
-                )
-            );
+            await peerConnection
+                .setRemoteDescription(
+                    new RTCSessionDescription(
+                        offer
+                    )
+                );
 
+
+            // ==================================
+            // CREATE ANSWER
+            // ==================================
 
             const answer =
-                await peerConnection.createAnswer();
+                await peerConnection
+                    .createAnswer();
 
 
-            await peerConnection.setLocalDescription(
-                answer
-            );
+            await peerConnection
+                .setLocalDescription(
+                    answer
+                );
 
+
+            // ==================================
+            // SEND ANSWER
+            // ==================================
 
             socket.emit(
                 "answer",
@@ -479,7 +635,7 @@ socket.on(
 
             const peerConnection =
                 peerConnections[
-                sender
+                    sender
                 ];
 
 
@@ -490,11 +646,12 @@ socket.on(
             }
 
 
-            await peerConnection.setRemoteDescription(
-                new RTCSessionDescription(
-                    answer
-                )
-            );
+            await peerConnection
+                .setRemoteDescription(
+                    new RTCSessionDescription(
+                        answer
+                    )
+                );
 
 
         } catch (error) {
@@ -525,7 +682,7 @@ socket.on(
 
             const peerConnection =
                 peerConnections[
-                sender
+                    sender
                 ];
 
 
@@ -534,11 +691,12 @@ socket.on(
                 candidate
             ) {
 
-                await peerConnection.addIceCandidate(
-                    new RTCIceCandidate(
-                        candidate
-                    )
-                );
+                await peerConnection
+                    .addIceCandidate(
+                        new RTCIceCandidate(
+                            candidate
+                        )
+                    );
 
             }
 
@@ -564,11 +722,33 @@ function createPeerConnection(
     userName
 ) {
 
-    // Return existing connection
+    // ==================================
+    // ALWAYS KEEP NAME
+    // ==================================
+
+    const finalUserName =
+        userName ||
+        remoteUserNames[
+            socketId
+        ] ||
+        "Participant";
+
+
+    // Save Name
+
+    remoteUserNames[
+        socketId
+    ] =
+        finalUserName;
+
+
+    // ==================================
+    // EXISTING CONNECTION
+    // ==================================
 
     if (
         peerConnections[
-        socketId
+            socketId
         ]
     ) {
 
@@ -579,13 +759,17 @@ function createPeerConnection(
     }
 
 
+    // ==================================
+    // CREATE PEER
+    // ==================================
+
     const peerConnection =
         new RTCPeerConnection(
             rtcConfiguration
         );
 
 
-    // Save connection
+    // Save Connection
 
     peerConnections[
         socketId
@@ -593,7 +777,9 @@ function createPeerConnection(
         peerConnection;
 
 
-    // Add local tracks
+    // ==================================
+    // ADD LOCAL TRACKS
+    // ==================================
 
     if (localStream) {
 
@@ -602,10 +788,11 @@ function createPeerConnection(
             .forEach(
                 track => {
 
-                    peerConnection.addTrack(
-                        track,
-                        localStream
-                    );
+                    peerConnection
+                        .addTrack(
+                            track,
+                            localStream
+                        );
 
                 }
             );
@@ -613,21 +800,33 @@ function createPeerConnection(
     }
 
 
-    // Receive remote tracks
+    // ==================================
+    // RECEIVE REMOTE TRACKS
+    // ==================================
 
     peerConnection.ontrack =
         function (event) {
 
+            const remoteName =
+                remoteUserNames[
+                    socketId
+                ] ||
+                finalUserName ||
+                "Participant";
+
+
             addRemoteVideo(
                 socketId,
                 event.streams[0],
-                userName
+                remoteName
             );
 
         };
 
 
-    // ICE Candidate
+    // ==================================
+    // ICE CANDIDATE
+    // ==================================
 
     peerConnection.onicecandidate =
         function (event) {
@@ -654,24 +853,30 @@ function createPeerConnection(
         };
 
 
-    // Connection State
+    // ==================================
+    // CONNECTION STATE
+    // ==================================
 
-    peerConnection.onconnectionstatechange =
+    peerConnection
+        .onconnectionstatechange =
         function () {
 
             console.log(
                 "Connection:",
                 socketId,
-                peerConnection.connectionState
+                peerConnection
+                    .connectionState
             );
 
 
             if (
-                peerConnection.connectionState ===
+                peerConnection
+                    .connectionState ===
                 "failed"
             ) {
 
-                peerConnection.restartIce();
+                peerConnection
+                    .restartIce();
 
             }
 
@@ -693,27 +898,78 @@ function addRemoteVideo(
     userName
 ) {
 
-    // Already exists
+    // ==================================
+    // GET FINAL NAME
+    // ==================================
 
-    if (
+    const finalUserName =
+        userName ||
+        remoteUserNames[
+            socketId
+        ] ||
+        "Participant";
+
+
+    // Save Name
+
+    remoteUserNames[
+        socketId
+    ] =
+        finalUserName;
+
+
+    // ==================================
+    // CHECK EXISTING CAMERA
+    // ==================================
+
+    const existingContainer =
         document.getElementById(
             `video-${socketId}`
-        )
+        );
+
+
+    if (
+        existingContainer
     ) {
 
+        // Update Video
+
         const existingVideo =
-            document.querySelector(
-                `#video-${socketId} video`
-            );
+            existingContainer
+                .querySelector(
+                    "video"
+                );
 
 
         if (
             existingVideo &&
-            existingVideo.srcObject !== stream
+            existingVideo.srcObject !==
+            stream
         ) {
 
             existingVideo.srcObject =
                 stream;
+
+        }
+
+
+        // ==================================
+        // UPDATE NAME
+        // ==================================
+
+        const existingName =
+            existingContainer
+                .querySelector(
+                    ".video-name"
+                );
+
+
+        if (
+            existingName
+        ) {
+
+            existingName.textContent =
+                finalUserName;
 
         }
 
@@ -723,7 +979,9 @@ function addRemoteVideo(
     }
 
 
-    // Container
+    // ==================================
+    // CREATE VIDEO CONTAINER
+    // ==================================
 
     const container =
         document.createElement(
@@ -739,7 +997,9 @@ function addRemoteVideo(
         `video-${socketId}`;
 
 
-    // Video
+    // ==================================
+    // VIDEO
+    // ==================================
 
     const video =
         document.createElement(
@@ -750,14 +1010,22 @@ function addRemoteVideo(
     video.autoplay =
         true;
 
+
     video.playsInline =
         true;
+
+
+    video.muted =
+        false;
+
 
     video.srcObject =
         stream;
 
 
-    // Name
+    // ==================================
+    // NAME
+    // ==================================
 
     const nameLabel =
         document.createElement(
@@ -770,14 +1038,17 @@ function addRemoteVideo(
 
 
     nameLabel.textContent =
-        userName || "Participant";
+        finalUserName;
 
 
-    // Add elements
+    // ==================================
+    // APPEND
+    // ==================================
 
     container.appendChild(
         video
     );
+
 
     container.appendChild(
         nameLabel
@@ -789,11 +1060,13 @@ function addRemoteVideo(
     );
 
 
-    // Add participant
+    // ==================================
+    // ADD PARTICIPANT
+    // ==================================
 
     addParticipant(
         socketId,
-        userName || "Participant"
+        finalUserName
     );
 
 }
@@ -808,16 +1081,63 @@ function addParticipant(
     userName
 ) {
 
+    const finalUserName =
+        userName ||
+        remoteUserNames[
+            socketId
+        ] ||
+        "Participant";
+
+
+    // Save Name
+
+    remoteUserNames[
+        socketId
+    ] =
+        finalUserName;
+
+
+    // Already Exists
+
     if (
         document.getElementById(
             `participant-${socketId}`
         )
     ) {
 
+        // Update Existing Name
+
+        const existingParticipant =
+            document.getElementById(
+                `participant-${socketId}`
+            );
+
+
+        const nameSpan =
+            existingParticipant
+                .querySelector(
+                    ".participant-name"
+                );
+
+
+        if (
+            nameSpan
+        ) {
+
+            nameSpan.textContent =
+                finalUserName;
+
+        }
+
+
         return;
 
     }
 
+
+    // ==================================
+    // CREATE PARTICIPANT ITEM
+    // ==================================
 
     const item =
         document.createElement(
@@ -839,10 +1159,10 @@ function addParticipant(
             👤
         </span>
 
-        <span>
+        <span class="participant-name">
             ${escapeHtml(
-        userName || "Participant"
-    )}
+                finalUserName
+            )}
         </span>
 
     `;
@@ -869,7 +1189,7 @@ socket.on(
         );
 
 
-        // Remove video
+        // Remove Video
 
         const videoContainer =
             document.getElementById(
@@ -886,7 +1206,7 @@ socket.on(
         }
 
 
-        // Remove participant
+        // Remove Participant
 
         const participant =
             document.getElementById(
@@ -903,11 +1223,11 @@ socket.on(
         }
 
 
-        // Close connection
+        // Close Peer
 
         if (
             peerConnections[
-            socketId
+                socketId
             ]
         ) {
 
@@ -921,6 +1241,13 @@ socket.on(
             ];
 
         }
+
+
+        // Delete Name
+
+        delete remoteUserNames[
+            socketId
+        ];
 
     }
 );
@@ -974,6 +1301,7 @@ function toggleMicrophone() {
             "disabled"
         );
 
+
         micBtn.innerHTML = `
 
             <span>
@@ -991,6 +1319,7 @@ function toggleMicrophone() {
         micBtn.classList.add(
             "disabled"
         );
+
 
         micBtn.innerHTML = `
 
@@ -1057,6 +1386,7 @@ function toggleCamera() {
             "disabled"
         );
 
+
         cameraBtn.innerHTML = `
 
             <span>
@@ -1074,6 +1404,7 @@ function toggleCamera() {
         cameraBtn.classList.add(
             "disabled"
         );
+
 
         cameraBtn.innerHTML = `
 
@@ -1118,28 +1449,33 @@ async function toggleScreenShare() {
     try {
 
         screenStream =
-            await navigator.mediaDevices.getDisplayMedia({
+            await navigator.mediaDevices
+                .getDisplayMedia({
 
-                video: true,
+                    video: true,
 
-                audio: false
+                    audio: false
 
-            });
+                });
 
 
         const screenTrack =
-            screenStream.getVideoTracks()[0];
+            screenStream
+                .getVideoTracks()[0];
 
 
-        // Replace video track in all peers
+        // ==================================
+        // REPLACE CAMERA WITH SCREEN
+        // ==================================
 
         for (
-            const socketId in peerConnections
+            const socketId in
+            peerConnections
         ) {
 
             const peerConnection =
                 peerConnections[
-                socketId
+                    socketId
                 ];
 
 
@@ -1158,16 +1494,19 @@ async function toggleScreenShare() {
                 sender
             ) {
 
-                await sender.replaceTrack(
-                    screenTrack
-                );
+                await sender
+                    .replaceTrack(
+                        screenTrack
+                    );
 
             }
 
         }
 
 
-        // Show screen locally
+        // ==================================
+        // SHOW LOCAL SCREEN
+        // ==================================
 
         localVideo.srcObject =
             screenStream;
@@ -1189,6 +1528,10 @@ async function toggleScreenShare() {
 
         `;
 
+
+        // ==================================
+        // SCREEN SHARE ENDED
+        // ==================================
 
         screenTrack.onended =
             function () {
@@ -1227,16 +1570,21 @@ async function stopScreenShare() {
 
     const cameraTrack =
         localStream
-            .getVideoTracks()[0];
+            ?.getVideoTracks()[0];
 
+
+    // ==================================
+    // RESTORE CAMERA
+    // ==================================
 
     for (
-        const socketId in peerConnections
+        const socketId in
+        peerConnections
     ) {
 
         const peerConnection =
             peerConnections[
-            socketId
+                socketId
             ];
 
 
@@ -1256,14 +1604,19 @@ async function stopScreenShare() {
             cameraTrack
         ) {
 
-            await sender.replaceTrack(
-                cameraTrack
-            );
+            await sender
+                .replaceTrack(
+                    cameraTrack
+                );
 
         }
 
     }
 
+
+    // ==================================
+    // STOP SCREEN
+    // ==================================
 
     screenStream
         .getTracks()
@@ -1273,13 +1626,25 @@ async function stopScreenShare() {
         );
 
 
+    // ==================================
+    // RESTORE LOCAL VIDEO
+    // ==================================
+
     localVideo.srcObject =
         localStream;
+
+
+    screenStream =
+        null;
 
 
     isScreenSharing =
         false;
 
+
+    // ==================================
+    // UPDATE BUTTON
+    // ==================================
 
     screenShareBtn.innerHTML = `
 
@@ -1513,14 +1878,14 @@ function addChatMessage(
 
         <div class="chat-message-name">
             ${escapeHtml(
-        userName
-    )}
+                userName
+            )}
         </div>
 
         <div class="chat-message-text">
             ${escapeHtml(
-        message
-    )}
+                message
+            )}
         </div>
 
     `;
@@ -1547,9 +1912,10 @@ copyRoomBtn.addEventListener(
 
         try {
 
-            await navigator.clipboard.writeText(
-                currentRoomId
-            );
+            await navigator.clipboard
+                .writeText(
+                    currentRoomId
+                );
 
 
             copyRoomBtn.textContent =
@@ -1607,14 +1973,18 @@ function leaveMeeting() {
     }
 
 
-    // Notify server
+    // ==================================
+    // NOTIFY SERVER
+    // ==================================
 
     socket.emit(
         "leave-room"
     );
 
 
-    // Stop camera and microphone
+    // ==================================
+    // STOP CAMERA + MIC
+    // ==================================
 
     if (
         localStream
@@ -1630,7 +2000,9 @@ function leaveMeeting() {
     }
 
 
-    // Stop screen share
+    // ==================================
+    // STOP SCREEN
+    // ==================================
 
     if (
         screenStream
@@ -1646,10 +2018,13 @@ function leaveMeeting() {
     }
 
 
-    // Close peers
+    // ==================================
+    // CLOSE PEERS
+    // ==================================
 
     for (
-        const socketId in peerConnections
+        const socketId in
+        peerConnections
     ) {
 
         peerConnections[
@@ -1659,19 +2034,37 @@ function leaveMeeting() {
     }
 
 
-    // Reset
+    // ==================================
+    // RESET PEERS
+    // ==================================
 
     Object.keys(
         peerConnections
     ).forEach(
         key =>
             delete peerConnections[
-            key
+                key
             ]
     );
 
 
-    // Reload page
+    // ==================================
+    // RESET NAMES
+    // ==================================
+
+    Object.keys(
+        remoteUserNames
+    ).forEach(
+        key =>
+            delete remoteUserNames[
+                key
+            ]
+    );
+
+
+    // ==================================
+    // RELOAD
+    // ==================================
 
     window.location.reload();
 
@@ -1702,7 +2095,7 @@ function escapeHtml(
 
 
 // ==========================================
-// SOCKET CONNECTION
+// SOCKET CONNECT
 // ==========================================
 
 socket.on(
@@ -1718,6 +2111,10 @@ socket.on(
 );
 
 
+// ==========================================
+// SOCKET DISCONNECT
+// ==========================================
+
 socket.on(
     "disconnect",
     () => {
@@ -1729,26 +2126,28 @@ socket.on(
     }
 );
 
-/* =========================================
-   DOUBLE CLICK CAMERA FULLSCREEN TOGGLE
-========================================= */
+
+// ==========================================
+// DOUBLE CLICK CAMERA FULLSCREEN
+// ==========================================
 
 document.addEventListener(
     "dblclick",
     function (event) {
 
-        // Find clicked camera box
         const camera =
             event.target.closest(
                 ".video-container"
             );
 
-        // If double click was outside camera
+
         if (!camera) {
+
             return;
+
         }
 
-        // Toggle fullscreen class
+
         camera.classList.toggle(
             "camera-fullscreen"
         );
